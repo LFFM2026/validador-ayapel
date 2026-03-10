@@ -82,7 +82,7 @@ else:
     if st.button("🚀 GENERAR DOCUMENTO VALIDADO", use_container_width=True):
         if archivo and id_proc and link_drive:
             # Obtener la URL de la app automáticamente
-            base_url = "https://tu-app.streamlit.app" # Se actualizará al desplegar
+            base_url = "https://validador-ayapel-bkmse63yk9sif272ml6fcr.streamlit.app/" # Se actualizará al desplegar
             url_portal = f"{base_url}/?validar={id_proc}&url={link_drive}"
             
             qr = qrcode.make(url_portal)
@@ -108,4 +108,5 @@ else:
             out = io.BytesIO()
             writer.write(out)
             st.success("✅ ¡Listo para descargar!")
+
             st.download_button("⬇️ DESCARGAR PDF", out.getvalue(), f"VALIDADO_{id_proc}.pdf", "application/pdf")
