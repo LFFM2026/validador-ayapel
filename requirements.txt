@@ -1,0 +1,5 @@
+streamlit
+qrcode
+pypdf
+reportlab
+Pillow
