@@ -42,16 +42,25 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# Función para mostrar el escudo centrado y grande
-def mostrar_escudo(tamano=220):
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        # Busca el escudo sin importar si es .png o .PNG
-        if os.path.exists("escudo.png"):
-            st.image("escudo.png", width=tamano)
-        elif os.path.exists("escudo.PNG"):
-            st.image("escudo.PNG", width=tamano)
-
+# Función mejorada para CENTRADO ABSOLUTO
+def mostrar_escudo(tamano=250):
+    # Usamos HTML para forzar el centrado total
+    nombre_archivo = "escudo.png" if os.path.exists("escudo.png") else "escudo.PNG"
+    
+    if os.path.exists(nombre_archivo):
+        st.markdown(
+            f"""
+            <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+                <img src="data:image/png;base64,{get_image_base64(nombre_archivo)}" width="{tamano}">
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+# Necesitamos esta pequeña función extra para que el HTML lea la imagen de GitHub
+import base64
+def get_image_base64(path):
+    with open(path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
 # --- LÓGICA DE NAVEGACIÓN ---
 query_params = st.query_params
 
@@ -137,3 +146,4 @@ else:
                 )
         else:
             st.error("⚠️ Por favor complete todos los campos (Archivo, ID y Link).")
+
